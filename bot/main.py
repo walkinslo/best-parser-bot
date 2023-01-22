@@ -1,18 +1,17 @@
-from API import *
 import message_texts
+from conv_handlers.tag_conv_handler import (
+   tag_handler,
+   quantity,
+   photo,
+   show_photo,
+   done
+)
 
 import logging
-from typing import Dict
 
 from os import getenv
-from time import sleep
 
-from telegram import (
-    ReplyKeyboardMarkup,
-    ReplyKeyboardRemove,
-    Update,
-    InputMediaPhoto
-)
+from telegram import Update
 from telegram.ext import (
     Application, 
     CommandHandler,
@@ -26,6 +25,9 @@ logging.basicConfig(
     format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s", level = logging.INFO
 )
 logger = logging.getLogger(__name__)
+
+
+TAG, QUANTITY, PHOTO, SHOW_PHOTO = range(4)
 
 
 TELEGRAM_API_TOKEN = getenv("TELEGRAM_API_TOKEN")
@@ -45,16 +47,33 @@ async def help(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 
+async def tag(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    context.user_data.clear()
+    await update.message.reply_text(
+        text = message_texts.TAG
+    )
+
+    return TAG
+
 def main() -> None:
-    """Start the bot."""
-    # Create the Application and pass it your bot's token.
     application = Application.builder().token(TELEGRAM_API_TOKEN).build()
 
-    # on different commands - answer in Telegram
+    tag_conv_handler = ConversationHandler(
+        entry_points=[CommandHandler("tag", tag)],
+        states = {
+            TAG: [MessageHandler(filters.TEXT, tag_handler)],
+            QUANTITY: [MessageHandler(filters.TEXT, quantity)],
+            PHOTO: [MessageHandler(filters.TEXT, photo)],
+            SHOW_PHOTO: [MessageHandler(filters.Regex("^(Show)$"), show_photo)]
+        },
+        fallbacks=[MessageHandler(filters.Regex("^(Done|No|Cancel)$"), done)],
+    )
+
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("help", help))
 
-    # Run the bot until the user presses Ctrl-C
+    application.add_handler(tag_conv_handler)
+
     application.run_polling()
 
 
