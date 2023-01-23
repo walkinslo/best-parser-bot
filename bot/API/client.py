@@ -27,9 +27,4 @@ class Rule34:
             if 'sample_url' in i:
                 urls.append(i['sample_url'])
 
-        
-        if request.status_code != 200:
-            raise APIError('Error', 'The API did not respond')
-
-
         return urls

@@ -55,6 +55,7 @@ async def tag(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     return TAG
 
+
 def main() -> None:
     application = Application.builder().token(TELEGRAM_API_TOKEN).build()
 
