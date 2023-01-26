@@ -52,7 +52,6 @@ async def tag(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         text = message_texts.TAG
     )
-
     return TAG
 
 
@@ -75,7 +74,7 @@ def main() -> None:
 
     application.add_handler(tag_conv_handler)
 
-    application.run_polling()
+    application.run_polling(drop_pending_updates=True)
 
 
 if __name__ == "__main__":

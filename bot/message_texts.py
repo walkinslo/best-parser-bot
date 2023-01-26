@@ -4,7 +4,7 @@ This bot will send you a lot of photos based on the tag that you provided.
 Avaliable commands:
 
 /start - this message
-/tag - get photos by specific tag
+/tag - initiate a conversation with a bot related to tag and photos
 /help - get help
 """
 
@@ -16,7 +16,7 @@ Help me find those bugs by creating Issue token on github: https://github.com/wa
 Commands:
 
 /start - initial message
-/tag - get photos by tag.
+/tag - this command will initiate a conversation with bot, and it will try to find photos by the tag you provide.
 /help - display this message.
  
 More command will be added soon so this message will be a little bit more useful.
