@@ -1,0 +1,5 @@
+from os import getenv
+
+TELEGRAM_API_TOKEN = getenv("TELEGRAM_API_TOKEN")
+
+TAG_ELEMENTS_COUNT = 2

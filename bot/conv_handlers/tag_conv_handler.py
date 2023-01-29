@@ -1,25 +1,37 @@
 from API import *
+from message_texts import *
+from config import TAG_ELEMENTS_COUNT
 from services import message_to_tag
+
 from time import sleep
+
 from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove,  Update, InputMediaPhoto
 from telegram.ext import ContextTypes, ConversationHandler
 
+
 TAG, SHOW_PHOTO = range(2)
+
 
 async def tag(update: Update, context: ContextTypes.DEFAULT_TYPE):
     reply_keyboard = [["Show", "Cancel"]]
     message = update.message.text.lower()
+    
+    tag_from_message = message_to_tag(message)
+    if not _is_numbers_sufficient(tag_from_message):
+        await update.message.reply_text(text = TAG_INVALID_INPUT)
+        return
 
-    context.user_data["tag"] = message_to_tag(message)[0]
-    context.user_data["quantity"] = message_to_tag(message)[1]
+    tag = tag_from_message[0]
+    quantity = tag_from_message[1]
 
     user_data = context.user_data
 
-    tag = user_data["tag"]
-    quantity = user_data["quantity"]
-
     rq = Rule34(APIBaseUrl, quantity, tag)
     user_data["urls"] = rq.request()
+
+    if len(user_data["urls"]) == 0:
+        await update.message.reply_text(text = NO_TAG_ERROR)
+        return
 
     await update.message.reply_text(
         f"I've been able to get {len(user_data['urls'])} photos with this tag.",
@@ -78,6 +90,7 @@ async def show_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "That's it! If you want to start over just type /tag.",
         reply_markup=ReplyKeyboardRemove()
     )
+    context.user_data.clear()
     return ConversationHandler.END
 
 
@@ -87,3 +100,7 @@ async def done(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
         f"Okay, bye."
     )
     return ConversationHandler.END
+
+
+def _is_numbers_sufficient(numbers: list[int]) -> bool:
+    return len(numbers) == TAG_ELEMENTS_COUNT

@@ -1,15 +1,14 @@
+import logging
+
+import handlers
+import config
 import message_texts
+
 from conv_handlers.tag_conv_handler import (
    tag,
    show_photo,
    done
 )
-
-import handlers
-
-import logging
-
-from os import getenv
 
 from telegram import Update
 from telegram.ext import (
@@ -31,8 +30,7 @@ logger = logging.getLogger(__name__)
 TAG, SHOW_PHOTO = range(2)
 
 
-TELEGRAM_API_TOKEN = getenv("TELEGRAM_API_TOKEN")
-if not TELEGRAM_API_TOKEN:
+if not config.TELEGRAM_API_TOKEN:
     exit("Please, specify the token env variable!")
 
 
@@ -44,8 +42,8 @@ async def tag_start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 def main() -> None:
-    application = Application.builder().token(TELEGRAM_API_TOKEN).build()
-
+    application = Application.builder().token(config.TELEGRAM_API_TOKEN).build()
+    
     tag_conv_handler = ConversationHandler(
         entry_points=[CommandHandler("tag", tag_start)],
         states = {
@@ -71,7 +69,7 @@ def main() -> None:
 
 try:
     main()
-except:
+except Exception:
     import traceback
     
     logging.warning(traceback.format_exc())
