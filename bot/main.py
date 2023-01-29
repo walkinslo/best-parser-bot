@@ -1,8 +1,6 @@
 import message_texts
 from conv_handlers.tag_conv_handler import (
-   tag_handler,
-   quantity,
-   photo,
+   tag,
    show_photo,
    done
 )
@@ -24,12 +22,13 @@ from telegram.ext import (
 )
 
 logging.basicConfig(
-    format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s", level = logging.INFO
+    format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s", 
+    level = logging.INFO
 )
 logger = logging.getLogger(__name__)
 
 
-TAG, QUANTITY, PHOTO, SHOW_PHOTO = range(4)
+TAG, SHOW_PHOTO = range(2)
 
 
 TELEGRAM_API_TOKEN = getenv("TELEGRAM_API_TOKEN")
@@ -37,7 +36,7 @@ if not TELEGRAM_API_TOKEN:
     exit("Please, specify the token env variable!")
 
 
-async def tag(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def tag_start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     context.user_data.clear()
     await update.message.reply_text(
         text = message_texts.TAG)
@@ -48,11 +47,9 @@ def main() -> None:
     application = Application.builder().token(TELEGRAM_API_TOKEN).build()
 
     tag_conv_handler = ConversationHandler(
-        entry_points=[CommandHandler("tag", tag)],
+        entry_points=[CommandHandler("tag", tag_start)],
         states = {
-            TAG: [MessageHandler(filters.TEXT, tag_handler)],
-            QUANTITY: [MessageHandler(filters.TEXT, quantity)],
-            PHOTO: [MessageHandler(filters.TEXT, photo)],
+            TAG: [MessageHandler(filters.TEXT, tag)],
             SHOW_PHOTO: [MessageHandler(filters.Regex("^(Show)$"), show_photo)]
         },
         fallbacks=[MessageHandler(filters.Regex("^(Done|No|Cancel)$"), done)],
@@ -78,4 +75,3 @@ except:
     import traceback
     
     logging.warning(traceback.format_exc())
-
