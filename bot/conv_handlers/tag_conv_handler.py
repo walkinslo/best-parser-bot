@@ -1,3 +1,4 @@
+import logging
 from API import *
 from message_texts import *
 from config import TAG_ELEMENTS_COUNT
@@ -11,6 +12,11 @@ from telegram.ext import ContextTypes, ConversationHandler
 
 TAG, SHOW_PHOTO = range(2)
 
+logging.basicConfig(
+    format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s", 
+    level = logging.INFO
+)
+logger = logging.getLogger(__name__)
 
 async def tag(update: Update, context: ContextTypes.DEFAULT_TYPE):
     reply_keyboard = [["Show", "Cancel"]]
@@ -43,22 +49,25 @@ async def tag(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def show_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     urls = context.user_data["urls"]
-    media_group = []
-
-    for url in urls:
-        media = InputMediaPhoto(url)
-        media_group.append(media)
+    
+    media_group = append_into_media_group(urls)
 
     try:
         await update.message.reply_media_group(media = media_group)
-    except:
+    except Exception:
+        import traceback
+
+        logging.warning(traceback.format_exc())
+
         start = 0
         end = len(media_group)
         step = 10
+        
         for i in range(start, end, step):
             x = i
             await update.message.reply_media_group(media = media_group[x:x+step])
-            sleep(2)
+            sleep(0,4)
+        
 
     await update.message.reply_text(
         "That's it! If you want to start over just type /tag.",
@@ -105,3 +114,13 @@ async def done(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 
 def _is_numbers_sufficient(numbers: list[int]) -> bool:
     return len(numbers) == TAG_ELEMENTS_COUNT
+
+
+def append_into_media_group(urls):
+    media_group = []
+    media = InputMediaPhoto(url)
+    for url in urls:
+        media_group.append(media)
+
+    return media_group
+
