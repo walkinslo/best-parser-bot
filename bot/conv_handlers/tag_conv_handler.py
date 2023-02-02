@@ -106,7 +106,7 @@ async def show_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def done(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     context.user_data.clear()
     await update.message.reply_text(
-        f"Okay, bye.",
+        f"Okay, bye. If you change your mind - send me /tag :)",
         reply_markup=ReplyKeyboardRemove()
     )
     return ConversationHandler.END
