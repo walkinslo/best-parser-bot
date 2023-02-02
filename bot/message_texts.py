@@ -26,24 +26,24 @@ and it will try to find photos by the tag you provide. (No arguments, just /tag)
 TAG = """Okay, to get photos specify tag - no commands needed, just type it after this message! 
 For example: 
 
-boobs, 10
+<code>boobs, 10</code>
 
-Where "boobs" is your tag, and "10" is the amount of photos you want me to find.
+Where "boobs" is your tag, and "10"> is the amount of photos you want me to find.
 
 If you want specific character, you have to specify the fandom in round brackets, like this:
 
-viper_(valorant)
+<code>viper_(valorant), 10</code>
 
 Where "viper" is the character, and (valorant) is the fandom. 
 The have to be separated but the underline.
 """
 
 
-TAG_INVALID_INPUT = """I was unable to read yor message.
+TAG_INVALID_INPUT = """I was unable to read your message.
 
 Please, write your request like this:
 
-boobs, 10
+<code>boobs, 10</code>
 
 Where "boobs" is your tag, and "10" is the amount of photos you want to recieve.
 """

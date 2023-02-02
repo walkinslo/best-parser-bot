@@ -8,6 +8,7 @@ from time import sleep
 
 from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove,  Update, InputMediaPhoto
 from telegram.ext import ContextTypes, ConversationHandler
+from telegram.constants import ParseMode
 
 
 TAG, SHOW_PHOTO = range(2)
@@ -41,7 +42,8 @@ async def tag(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     await update.message.reply_text(
         f"I've been able to get {len(user_data['urls'])} photos with this tag.",
-        reply_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True, resize_keyboard=True)    
+        reply_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True, resize_keyboard=True,
+        parse_mode=ParseMode.HTML)    
         )
 
     return SHOW_PHOTO

@@ -19,6 +19,7 @@ from telegram.ext import (
     MessageHandler,
     filters
 )
+from telegram.constants import ParseMode
 
 logging.basicConfig(
     format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s", 
@@ -37,7 +38,9 @@ if not config.TELEGRAM_API_TOKEN:
 async def tag_start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     context.user_data.clear()
     await update.message.reply_text(
-        text = message_texts.TAG)
+        text = message_texts.TAG,
+        parse_mode=ParseMode.HTML
+        )
     return TAG
 
 
