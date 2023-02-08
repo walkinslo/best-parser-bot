@@ -42,8 +42,7 @@ async def tag(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     await update.message.reply_text(
         f"I've been able to get {len(user_data['urls'])} photos with this tag.",
-        reply_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True, resize_keyboard=True,
-        parse_mode=ParseMode.HTML)    
+        reply_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True, resize_keyboard=True)    
         )
 
     return SHOW_PHOTO
