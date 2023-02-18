@@ -64,7 +64,6 @@ def main() -> None:
     for command_name, command_handler in COMMAND_HANDLERS.items():
         application.add_handler(CommandHandler(command_name,command_handler))
 
-
     application.add_handler(tag_conv_handler)
 
     application.run_polling(drop_pending_updates=True)

@@ -2,9 +2,8 @@ import logging
 from API import *
 from message_texts import *
 from config import TAG_ELEMENTS_COUNT
-from services import message_to_tag
-
-from time import sleep
+from services.message_to_tag import message_to_tag
+from services.photos import send_photos
 
 from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove,  Update, InputMediaPhoto
 from telegram.ext import ContextTypes, ConversationHandler
@@ -49,60 +48,10 @@ async def tag(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 async def show_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    urls = context.user_data["urls"]
     
-    media_group = append_into_media_group(urls)
+    await send_photos(update, context)
 
-    try:
-        await update.message.reply_media_group(media = media_group)
-    except Exception:
-        import traceback
-
-        logging.warning(traceback.format_exc())
-
-        start = 0
-        end = len(media_group)
-        step = 10
-        
-        for i in range(start, end, step):
-            x = i
-            await update.message.reply_media_group(media = media_group[x:x+step])
-            sleep(0,4)
-        
-
-    await update.message.reply_text(
-        "That's it! If you want to start over just type /tag.",
-        reply_markup=ReplyKeyboardRemove()
-    )
     return ConversationHandler.END
-
-
-async def show_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    urls = context.user_data["urls"]
-    media_group = []
-
-    for url in urls:
-        media = InputMediaPhoto(url)
-        media_group.append(media)
-
-    try:
-        await update.message.reply_media_group(media = media_group)
-    except:
-        start = 0
-        end = len(media_group)
-        step = 10
-        for i in range(start, end, step):
-            x = i
-            await update.message.reply_media_group(media = media_group[x:x+step])
-            sleep(2)
-
-    await update.message.reply_text(
-        "That's it! If you want to start over just type /tag.",
-        reply_markup=ReplyKeyboardRemove()
-    )
-    context.user_data.clear()
-    return ConversationHandler.END
-
 
 async def done(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     context.user_data.clear()
@@ -115,13 +64,4 @@ async def done(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 
 def _is_numbers_sufficient(numbers: list[int]) -> bool:
     return len(numbers) == TAG_ELEMENTS_COUNT
-
-
-def append_into_media_group(urls):
-    media_group = []
-    media = InputMediaPhoto(url)
-    for url in urls:
-        media_group.append(media)
-
-    return media_group
 
