@@ -1,14 +1,13 @@
 import logging
 from API import *
 from message_texts import *
-from config import TAG_ELEMENTS_COUNT
 from services.message_to_tag import message_to_tag
 from services.photos import send_photos
+from services.helpers import _is_numbers_sufficient
 
-from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove,  Update, InputMediaPhoto
+from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, Update
 from telegram.ext import ContextTypes, ConversationHandler
 from telegram.constants import ParseMode
-
 
 TAG, SHOW_PHOTO = range(2)
 
@@ -18,13 +17,14 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+
 async def tag(update: Update, context: ContextTypes.DEFAULT_TYPE):
     reply_keyboard = [["Show", "Cancel"]]
     message = update.message.text.lower()
     
     tag_from_message = message_to_tag(message)
     if not _is_numbers_sufficient(tag_from_message):
-        await update.message.reply_text(text = TAG_INVALID_INPUT)
+        await update.message.reply_text(text = TAG_INVALID_INPUT, parse_mode=ParseMode.HTML)
         return
 
     tag = tag_from_message[0]
@@ -48,7 +48,6 @@ async def tag(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 async def show_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    
     await send_photos(update, context)
 
     return ConversationHandler.END
@@ -59,9 +58,5 @@ async def done(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
         f"Okay, bye. If you change your mind - send me /tag :)",
         reply_markup=ReplyKeyboardRemove()
     )
+
     return ConversationHandler.END
-
-
-def _is_numbers_sufficient(numbers: list[int]) -> bool:
-    return len(numbers) == TAG_ELEMENTS_COUNT
-
