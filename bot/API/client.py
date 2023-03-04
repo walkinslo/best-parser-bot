@@ -19,6 +19,7 @@ class Rule34:
     
     
     def request(self):
+
         try:
             request = requests.get(self.url, params = self.payload) 
             response = request.json()
@@ -26,7 +27,9 @@ class Rule34:
             for i in response:
                 if 'sample_url' in i:
                     urls.append(i['sample_url'])
+        
             return urls
+        
         except Exception:
             urls = []
             return urls

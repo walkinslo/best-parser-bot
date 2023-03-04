@@ -9,6 +9,7 @@ from conv_handlers.tag_conv_handler import (
    show_photo,
    done
 )
+from services.photos import button
 
 from telegram import Update
 from telegram.ext import (
@@ -17,6 +18,7 @@ from telegram.ext import (
     ContextTypes,
     ConversationHandler,
     MessageHandler,
+    CallbackQueryHandler,
     filters
 )
 from telegram.constants import ParseMode
@@ -65,6 +67,8 @@ def main() -> None:
         application.add_handler(CommandHandler(command_name,command_handler))
 
     application.add_handler(tag_conv_handler)
+
+    application.add_handler(CallbackQueryHandler(button))
 
     application.run_polling(drop_pending_updates=True)
 
