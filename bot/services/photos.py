@@ -38,8 +38,8 @@ async def send_photos(update: Update, context: ContextTypes.DEFAULT_TYPE):
 def _get_photos_keyboard(current_index: int) -> InlineKeyboardMarkup:
     keyboard = [
         [
-            InlineKeyboardButton("Option 1", callback_data=current_index - 1),
-            InlineKeyboardButton("Option 2", callback_data=current_index + 1),
+            InlineKeyboardButton(" < ", callback_data=current_index - 1),
+            InlineKeyboardButton(" > ", callback_data=current_index + 1),
         ]
     ]
     return InlineKeyboardMarkup(keyboard)
