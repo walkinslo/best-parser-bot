@@ -9,6 +9,7 @@ from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, Update
 from telegram.ext import ContextTypes, ConversationHandler
 from telegram.constants import ParseMode
 
+
 TAG, SHOW_PHOTO = range(2)
 
 logging.basicConfig(
@@ -16,7 +17,6 @@ logging.basicConfig(
     level = logging.INFO
 )
 logger = logging.getLogger(__name__)
-
 
 async def tag(update: Update, context: ContextTypes.DEFAULT_TYPE):
     reply_keyboard = [["Show", "Cancel"]]

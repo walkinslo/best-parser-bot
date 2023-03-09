@@ -1,5 +1,6 @@
 GREETING = """Hi! 
-This bot will send you a lot of photos based on the tag that you provided.
+I can send you photos from Rule34 website!
+
 
 Avaliable commands:
 
@@ -9,11 +10,7 @@ Avaliable commands:
 """
 
 
-HELP = """My bot was created as a hobby, so it is a little bit buggy. 
-Help me find those bugs by creating Issue token on github:
-
-https://github.com/walkinslo/best-parser-bot.
-
+HELP = """
 Commands:
 
 /start - initial message
@@ -30,6 +27,7 @@ For example:
 
 Where "boobs" is your tag, and "10"> is the amount of photos you want me to find.
 
+
 If you want specific character, you have to specify the fandom in round brackets, like this:
 
 <code>viper_(valorant), 10</code>
@@ -40,7 +38,6 @@ The have to be separated but the underline.
 
 
 TAG_INVALID_INPUT = """I was unable to read your message.
-
 Please, write your request like this:
 
 <code>boobs, 10</code>
@@ -50,6 +47,5 @@ Where "boobs" is your tag, and "10" is the amount of photos you want to recieve.
 
 
 NO_TAG_ERROR = """Oops! It looks like there is no such tag on Rule34.
-
 Try another one!
 """

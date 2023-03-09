@@ -1,7 +1,7 @@
 from telegram import InputMediaPhoto
 from config import TAG_ELEMENTS_COUNT
 
-def append_into_media_group(urls):
+def append_into_media_group(urls) -> list:
     media_group = []
     for url in urls:
         media = InputMediaPhoto(url)

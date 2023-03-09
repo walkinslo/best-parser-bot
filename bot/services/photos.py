@@ -1,17 +1,13 @@
 import logging
 
-from collections import Counter
-
 from telegram import Update, ReplyKeyboardRemove, InlineKeyboardButton, InlineKeyboardMarkup, InputMediaPhoto
 from telegram.ext import ContextTypes, CallbackQueryHandler
 
 from .helpers import append_into_media_group
-
+from .keyboards import get_photos_keyboard
 
 async def send_photos(update: Update, context: ContextTypes.DEFAULT_TYPE):
-
     urls = context.user_data["urls"]
-
     media_group = append_into_media_group(urls)
 
     try:
@@ -35,33 +31,24 @@ async def send_photos(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
     
 
-def _get_photos_keyboard(current_index: int) -> InlineKeyboardMarkup:
-    keyboard = [
-        [
-            InlineKeyboardButton(" < ", callback_data=current_index - 1),
-            InlineKeyboardButton(" > ", callback_data=current_index + 1),
-        ]
-    ]
-    return InlineKeyboardMarkup(keyboard)
-
-
 async def tmp(update: Update, context: ContextTypes.DEFAULT_TYPE):
     effective_chat = update.effective_chat
-
     urls = context.user_data["urls"]
+    current_photo_index = int(query.data)
+    photos_count = len(urls)
 
     try: 
         await context.bot.send_photo(
             photo=urls[0], 
             chat_id=effective_chat.id, 
-            reply_markup=_get_photos_keyboard(0)
+            reply_markup=get_photos_keyboard(photos_count=photos_count, current_photo_index=current_photo_index)
         )
     except Exception:
         del urls[0]
         await context.bot.send_photo(
             photo=urls[0], 
-            chat_id=effective_chat.id, 
-            reply_markup=_get_photos_keyboard(0)
+            chat_id=effective_chat.id,  
+            reply_markup=get_photos_keyboard(photos_count=photos_count, current_photo_index=current_photo_index)
         )
 
 async def button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -73,5 +60,5 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
     await query.edit_message_media(
         media = InputMediaPhoto(urls[current_index]),
-        reply_markup = _get_photos_keyboard(current_index)
+        reply_markup = get_photos_keyboard(photos_count=len(urls), current_photo_index=current_index)
     )
