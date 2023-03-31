@@ -1,11 +1,8 @@
 from telegram import Update
 from telegram.ext import ContextTypes
-from telegram.constants import ParseMode
 
 import message_texts
+from .send_message import send_message
 
-async def help(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text(
-        text = message_texts.HELP,
-        parse_mode=ParseMode.HTML
-        )
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await send_message(update, context, response = message_texts.HELP) 

@@ -37,6 +37,9 @@ The have to be separated but the underline.
 """
 
 
+DONE = """Okay, bye, If you change your mind, send me <code>/tag</code>."""
+
+
 TAG_INVALID_INPUT = """I was unable to read your message.
 Please, write your request like this:
 

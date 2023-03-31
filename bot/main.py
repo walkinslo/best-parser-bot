@@ -1,27 +1,26 @@
-import logging
+import logging 
 
-import handlers
-import config
 import message_texts
-
-from conv_handlers.tag_conv_handler import (
-   tag,
-   show_photo,
-   done
+import config
+from handlers.response import send_message
+from handlers.start import start
+from handlers.photos import button
+from handlers.tag_conv_handler import (
+        tag,
+        show_photo,
+        done
 )
-from services.photos import button
 
 from telegram import Update
 from telegram.ext import (
-    Application, 
-    CommandHandler,
-    ContextTypes,
-    ConversationHandler,
-    MessageHandler,
-    CallbackQueryHandler,
-    filters
-)
-from telegram.constants import ParseMode
+        Application,
+        CommandHandler,
+        ContextTypes,
+        MessageHandler,
+        ConversationHandler,
+        CallbackQueryHandler,
+        filters
+        )
 
 logging.basicConfig(
     format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s", 
@@ -39,10 +38,8 @@ if not config.TELEGRAM_API_TOKEN:
 
 async def tag_start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     context.user_data.clear()
-    await update.message.reply_text(
-        text = message_texts.TAG,
-        parse_mode=ParseMode.HTML
-        )
+    await send_message(update, context, response=message_texts.TAG)
+    
     return TAG
 
 
@@ -59,23 +56,21 @@ def main() -> None:
     )
 
     COMMAND_HANDLERS = {
-        "start": handlers.start,
-        "help": handlers.help
+        "start": start 
     }
 
     for command_name, command_handler in COMMAND_HANDLERS.items():
         application.add_handler(CommandHandler(command_name,command_handler))
-
+    
     application.add_handler(tag_conv_handler)
 
     application.add_handler(CallbackQueryHandler(button))
 
-    application.run_polling(drop_pending_updates=True)
-
+    application.run_polling(drop_pending_updates=True)    
 
 try:
     main()
 except Exception:
     import traceback
-    
+
     logging.warning(traceback.format_exc())
