@@ -36,7 +36,7 @@ if not config.TELEGRAM_API_TOKEN:
     exit("Please, specify the token env variable!")
 
 
-async def tag_start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def tag_start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     context.user_data.clear()
     await send_message(update, context, response=message_texts.TAG)
     
@@ -51,8 +51,8 @@ def main() -> None:
         states = {
             TAG: [MessageHandler(filters.TEXT, tag)],
             SHOW_PHOTO: [MessageHandler(filters.Regex("^(Show)$"), show_photo)]
-        },
-        fallbacks=[MessageHandler(filters.Regex("^(Done|No|Cancel)$"), done)],
+        }, 
+        fallbacks=[MessageHandler(filters.Regex("^Cancel"), done)],
     )
 
     COMMAND_HANDLERS = {

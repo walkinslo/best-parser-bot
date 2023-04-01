@@ -1,8 +1,5 @@
 import requests
 
-from .utils import APIBaseUrl, APITagUrl
-from .exceptions import APIError
-
 class Rule34:
 
     

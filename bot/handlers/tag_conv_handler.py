@@ -6,7 +6,7 @@ from .photos import send_photos
 from services.API import APIBaseUrl, Rule34 
 from services.helpers import _is_numbers_sufficient, message_to_tag
 
-from telegram import Update, ReplyKeyboardMarkup, ReplyKeyboardRemove
+from telegram import Update, ReplyKeyboardMarkup
 from telegram.ext import ContextTypes, ConversationHandler
 
 
@@ -41,28 +41,33 @@ async def tag(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     rq = Rule34(APIBaseUrl, quantity, tag)
     user_data["urls"] = rq.request()
-    urls_length = len(user_data["urls"])
+    photos_count = len(user_data["urls"])
 
-    if len(user_data["urls"]) == 0:
-        await send_message(update, context, 
+    if photos_count == 0:
+        await send_message(
+                update, 
+                context, 
                 reponse = message_texts.NO_TAG_ERROR
         )
         return
 
     await update.message.reply_text(
-        f"I've been able to get {urls_length} photos with this tag.",
-        
-        reply_markup = ReplyKeyboardMarkup(reply_keyboard, 
-        one_time_keyboard=True, 
-        resize_keyboard=True
-            )    
+            f"I've been able to get {photos_count} photos with this tag.",
+            reply_markup = ReplyKeyboardMarkup(reply_keyboard, resize_keyboard=True)    
         )
 
     return SHOW_PHOTO
 
 
 async def show_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
+
     await send_photos(update, context)
+    
+    await send_message(
+            update, 
+            context,
+            response = message_texts.DONE
+    )
 
     return ConversationHandler.END
 
@@ -73,7 +78,6 @@ async def done(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await send_message(
             update,
             context,
-            keyboard = ReplyKeyboardRemove(),
             response = message_texts.DONE 
     )
 

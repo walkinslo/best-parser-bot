@@ -37,7 +37,7 @@ The have to be separated but the underline.
 """
 
 
-DONE = """Okay, bye, If you change your mind, send me <code>/tag</code>."""
+DONE = """If you want to start over, send me <code>/tag</code>."""
 
 
 TAG_INVALID_INPUT = """I was unable to read your message.
@@ -52,3 +52,5 @@ Where "boobs" is your tag, and "10" is the amount of photos you want to recieve.
 NO_TAG_ERROR = """Oops! It looks like there is no such tag on Rule34.
 Try another one!
 """
+
+UNKNOWN_ERROR = """Oops! If you see this, contact me: @walkinslo"""
