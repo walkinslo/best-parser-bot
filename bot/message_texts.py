@@ -37,7 +37,7 @@ The have to be separated but the underline.
 """
 
 
-DONE = """If you want to start over, send me <code>/tag</code>."""
+DONE = """If you want to start over, send me /tag."""
 
 
 TAG_INVALID_INPUT = """I was unable to read your message.

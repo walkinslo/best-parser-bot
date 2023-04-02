@@ -47,7 +47,7 @@ async def tag(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await send_message(
                 update, 
                 context, 
-                reponse = message_texts.NO_TAG_ERROR
+                response = message_texts.NO_TAG_ERROR
         )
         return
 

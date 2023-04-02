@@ -24,7 +24,11 @@ def _get_photos_keyboard(
         ],
         [
             InlineKeyboardButton("Download all", callback_data="download")
+        ],
+        [
+            InlineKeyboardButton("Retrun", callback_data="return")
         ]
+
     ]
 
     return InlineKeyboardMarkup(keyboard)
@@ -57,7 +61,7 @@ async def send_photos(update: Update, context: ContextTypes.DEFAULT_TYPE):
             chat_id = effective_chat.id, 
             reply_markup = _get_photos_keyboard(0, photos_count)
         )
-
+        
 
 async def button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     query = update.callback_query

@@ -47,7 +47,7 @@ def main() -> None:
     application = Application.builder().concurrent_updates(True).token(config.TELEGRAM_API_TOKEN).build()
     
     tag_conv_handler = ConversationHandler(
-        entry_points=[CommandHandler("tag", tag_start)],
+        entry_points = [CommandHandler("tag", tag_start)],
         states = {
             TAG: [MessageHandler(filters.TEXT, tag)],
             SHOW_PHOTO: [
