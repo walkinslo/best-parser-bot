@@ -8,7 +8,7 @@ async def send_message(
         update: Update,
         context: ContextTypes.DEFAULT_TYPE,
         response: str,
-        keyboard: InlineKeyboardMarkup
+        keyboard: InlineKeyboardMarkup | None = None
 ) -> None:
     args = {
             "text": response,
