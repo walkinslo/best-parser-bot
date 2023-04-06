@@ -1,5 +1,5 @@
 ## About
-Okay, so I created this [bot](t.me/thebestrule34_bot) just to practice my Telegram API skills.
+Okay, so I created this [bot](https://t.me/thebestrule34_bot) just to practice my Telegram API skills.
 
 
 ## Commands
