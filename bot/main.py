@@ -3,7 +3,7 @@ import logging
 import message_texts
 import config
 from handlers.response import send_message
-from handlers.start import start
+from handlers import start, help
 from handlers.photos import button
 from handlers.tag_conv_handler import (
         tag,
@@ -20,7 +20,7 @@ from telegram.ext import (
         ConversationHandler,
         CallbackQueryHandler,
         filters
-        )
+)
 
 logging.basicConfig(
     format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s", 
@@ -58,7 +58,8 @@ def main() -> None:
     )
 
     COMMAND_HANDLERS = {
-        "start": start 
+        "start": start,
+        "help": help
     }
 
     for command_name, command_handler in COMMAND_HANDLERS.items():
