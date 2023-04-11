@@ -4,7 +4,7 @@ import message_texts
 import config
 from handlers.response import send_message
 from handlers import start, help
-from handlers.buttons import pagination_button, navigation_button
+from handlers.buttons import pagination_button
 from handlers.tag_conv_handler import (
         tag,
         show_photo,
@@ -68,7 +68,6 @@ def main() -> None:
     application.add_handler(tag_conv_handler)
 
     application.add_handler(CallbackQueryHandler(pagination_button))
-    application.add_handler(CallbackQueryHandler(navigation_button))
 
     application.run_polling(drop_pending_updates=True)    
 

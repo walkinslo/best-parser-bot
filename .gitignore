@@ -1,3 +1,6 @@
+#Ignore venv files
+bot/best-parser-bot/
+
 #Ignore macOS files
 .DS_store
 
