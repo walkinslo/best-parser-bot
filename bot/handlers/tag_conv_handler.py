@@ -21,12 +21,12 @@ logger = logging.getLogger(__name__)
 
 
 async def tag(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    reply_keyboard = [["Show", "Cancel"]]
+    reply_keyboard = ["Show", "Cancel"]
     message = update.message.text.lower()
     user_data = context.user_data
 
     tag_from_message = message_to_tag(message)
-
+    
     if not _is_numbers_sufficient(tag_from_message):
         await send_message(
                 update,

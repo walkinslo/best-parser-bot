@@ -44,17 +44,25 @@ async def tag_start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 
 
 def main() -> None:
-    application = Application.builder().concurrent_updates(True).token(config.TELEGRAM_API_TOKEN).build()
+    application = (
+            Application.builder()
+            .concurrent_updates(True)
+            .token(config.TELEGRAM_API_TOKEN)
+            .build()
+    )
     
     tag_conv_handler = ConversationHandler(
+        allow_reentry=True,
         entry_points = [CommandHandler("tag", tag_start)],
         states = {
-            TAG: [MessageHandler(filters.TEXT, tag)],
+            TAG: [
+                MessageHandler(filters.TEXT, tag)
+            ],
             SHOW_PHOTO: [
                 MessageHandler(filters.Regex("^(Show)$"), show_photo, block=False)
             ]
         }, 
-        fallbacks=[MessageHandler(filters.Regex("^Cancel"), done)],
+        fallbacks=[CommandHandler("cancel", done)]
     )
 
     COMMAND_HANDLERS = {
@@ -70,6 +78,7 @@ def main() -> None:
     application.add_handler(CallbackQueryHandler(pagination_button))
 
     application.run_polling(drop_pending_updates=True)    
+
 
 try:
     main()
