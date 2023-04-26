@@ -4,7 +4,8 @@ start_over = 1
 
 
 def get_photos_keyboard(
-        current_index: int, photos_count: int
+        current_index: int,
+        photos_count: int
 ) -> InlineKeyboardMarkup:
 
     prev_index = current_index - 1

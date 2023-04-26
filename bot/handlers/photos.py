@@ -1,6 +1,6 @@
 from telegram import (
-        Update, 
-        ReplyKeyboardRemove
+    Update,
+    ReplyKeyboardRemove
 )
 from telegram.ext import ContextTypes
 
@@ -11,26 +11,25 @@ async def send_photos(update: Update, context: ContextTypes.DEFAULT_TYPE):
     effective_chat = update.effective_chat
 
     urls = context.user_data["urls"]
-    
-    photos_count = len(urls)
 
+    photos_count = len(urls)
     if photos_count == 0:
         await context.bot.send_photo(
-                photo = urls[0],
-                chat_id = effective_chat,
-                reply_markup = ReplyKeyboardRemove()
+            photo=urls[0],
+            chat_id=effective_chat,
+            reply_markup=ReplyKeyboardRemove()
         )
 
-    try: 
+    try:
         await context.bot.send_photo(
-            photo=urls[0], 
-            chat_id = effective_chat.id, 
-            reply_markup = get_photos_keyboard(0, photos_count)
+            photo=urls[0],
+            chat_id=effective_chat.id,
+            reply_markup=get_photos_keyboard(0, photos_count)
         )
     except Exception:
         del urls[0]
         await context.bot.send_photo(
-            photo = urls[0], 
-            chat_id = effective_chat.id, 
-            reply_markup = get_photos_keyboard(0, photos_count)
+            photo=urls[0],
+            chat_id=effective_chat.id,
+            reply_markup=get_photos_keyboard(0, photos_count)
         )
