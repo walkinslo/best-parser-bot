@@ -6,9 +6,7 @@ from telegram.ext import ContextTypes
 
 from .photos import get_photos_keyboard
 
-
 TAG = 0
-
 
 async def pagination_button(
         update: Update,
