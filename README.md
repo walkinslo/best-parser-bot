@@ -5,7 +5,7 @@ Okay, so I created this [bot](https://t.me/thebestrule34_bot) just to practice m
 ## Commands
 
 - `/start` — Initial message.
-- `/tag` — Initiate Rule34 mode.
+- `/tag` — Initiate Rule34 mode (nsfw).
 - `/help` — Commands.
 
 ## Deployment tutorial
