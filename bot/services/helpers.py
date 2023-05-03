@@ -1,11 +1,12 @@
 import re
 
 from telegram import InputMediaPhoto
-from config import TAG_ELEMENTS_COUNT
+from bot.config import TAG_ELEMENTS_COUNT
 
 
 def message_to_tag(user_message):
-    return re.findall(r"(?<![\"=\w])(?:[^\W_]+)(?![\"=\w])", user_message)
+    parts = user_message.split()
+    return parts
 
 
 def append_into_media_group(urls: list[str]) -> list:
