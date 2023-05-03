@@ -1,16 +1,16 @@
-## NSFW!
-Telegram-бот, который отправляет фото с Rule34 по заданному тегу.
-Создатель - [Walkinslo](https://github.com/walkinslo).
+## About
+Okay, so I created this [bot](https://t.me/thebestrule34_bot) just to practice my Telegram API skills.
 
-Команды бота:
 
-- `/start` — приветственное сообщение.
-- `/tag` — получить фото по заданному тегу.
-- `/help` - помощь по командам.
+## Commands
 
-## TODO
+- `/start` — Initial message.
+- `/tag` — Initiate Rule34 mode (nsfw).
+- `/help` — Commands.
 
-- Добавить возврат.
-- Добавить кнопку которая скачивает все. 
-- Рефакторинг. 
-- Добавить интерфейс с Realbooru.
+## Deployment tutorial
+1. Set the TELEGRAM_BOT_API env variable.
+2. Clone the repo.
+3. Install the requrements: 
+  <code>pip3 install -r requirements.txt</code>
+4. Run the bot!
