@@ -20,6 +20,7 @@ class Rule34:
         try:
             request = requests.get(self.url, params = self.payload) 
             response = request.json()
+            print(response)
             urls = []
             for i in response:
                 if 'sample_url' in i:

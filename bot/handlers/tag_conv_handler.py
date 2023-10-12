@@ -3,8 +3,8 @@ import logging
 import message_texts
 from .response import send_message
 from .photos import send_photos
-from bot.services.API import APIBaseUrl, Rule34
-from bot.services.helpers import _is_numbers_sufficient, message_to_tag
+from services.API import APIBaseUrl, Rule34
+from services.helpers import _is_numbers_sufficient, message_to_tag
 
 from telegram import Update, ReplyKeyboardMarkup
 from telegram.ext import ContextTypes, ConversationHandler

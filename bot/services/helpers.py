@@ -1,11 +1,10 @@
-import re
-
 from telegram import InputMediaPhoto
-from bot.config import TAG_ELEMENTS_COUNT
+from config import TAG_ELEMENTS_COUNT
 
 
 def message_to_tag(user_message):
     parts = user_message.split()
+    print(parts)
     return parts
 
 
