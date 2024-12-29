@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "best-parser-bot"
-version = "0.1.0"
-description = "Bot"
+version = "1.0.0"
+description = "Rule34.xxx parser."
 authors = ["Fedor <fed.degtjarev@gmail.com>"]
 readme = "README.md"
 
@@ -9,7 +9,6 @@ readme = "README.md"
 python = "^3.13"
 python_telegram_bot = "^20.2"
 requests = "^2.28.2"
-
 
 [build-system]
 requires = ["poetry-core"]
