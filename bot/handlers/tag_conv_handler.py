@@ -6,7 +6,7 @@ from .photos import send_photos
 from services.API import APIBaseUrl, Rule34
 from services.helpers import _is_numbers_sufficient, message_to_tag
 
-from telegram import Update, ReplyKeyboardMarkup
+from telegram import Update, ReplyKeyboardMarkup, ReplyKeyboardRemove
 from telegram.ext import ContextTypes, ConversationHandler
 
 TAG, SHOW_PHOTO = range(2)
@@ -50,7 +50,7 @@ async def tag(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     await update.message.reply_text(
         f"I've been able to get {photos_count} photos with this tag.",
-        reply_markup=ReplyKeyboardMarkup(reply_keyboard, resize_keyboard=True)
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, resize_keyboard=True, one_time_keyboard=True)
     )
 
     return SHOW_PHOTO

@@ -16,5 +16,6 @@ async def send_message(
     }
     if keyboard:
         args["reply_markup"] = keyboard
+        args["one_time_keyboard"] = True
 
     await update.message.reply_text(**args)

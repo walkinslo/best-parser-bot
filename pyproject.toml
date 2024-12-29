@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "best-parser-bot"
+version = "0.1.0"
+description = "Bot"
+authors = ["Fedor <fed.degtjarev@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+python_telegram_bot = "^20.2"
+requests = "^2.28.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
