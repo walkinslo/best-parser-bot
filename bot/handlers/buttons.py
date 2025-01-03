@@ -4,7 +4,7 @@ from telegram import (
 )
 from telegram.ext import ContextTypes
 
-from .photos import get_photos_keyboard
+from bot.handlers.photos import get_photos_keyboard
 
 TAG = 0
 

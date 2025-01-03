@@ -1,10 +1,10 @@
 import logging
 
-import message_texts
-from .response import send_message
-from .photos import send_photos
-from services.API import APIBaseUrl, Rule34
-from services.helpers import _is_numbers_sufficient, message_to_tag
+import bot.message_texts
+from bot.handlers.response import send_message
+from bot.handlers.photos import send_photos
+from bot.services.API import APIBaseUrl, Rule34
+from bot.services.helpers import _is_numbers_sufficient, message_to_tag
 
 from telegram import Update, ReplyKeyboardMarkup, ReplyKeyboardRemove
 from telegram.ext import ContextTypes, ConversationHandler

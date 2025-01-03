@@ -1,8 +1,8 @@
 from telegram import Update
 from telegram.ext import ContextTypes
 
-from .keyboards import get_photos_keyboard
-from .response import send_message
+from bot.handlers.keyboards import get_photos_keyboard
+from bot.handlers.response import send_message
 
 
 async def send_photos(update: Update, context: ContextTypes.DEFAULT_TYPE):

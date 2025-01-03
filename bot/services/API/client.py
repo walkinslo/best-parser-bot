@@ -1,8 +1,6 @@
 import requests
 
 class Rule34:
-
-    
     def __init__(self, url, limit, tags):
         self.url = url
         self.limit = limit
@@ -16,7 +14,6 @@ class Rule34:
     
     
     def request(self):
-
         try:
             request = requests.get(self.url, params = self.payload) 
             response = request.json()

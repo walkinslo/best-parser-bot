@@ -1,5 +1,5 @@
-from .start import start
-from .help import help
+from bot.handlers.start import start
+from bot.handlers.help import help
 
 __all__ = [
     start,

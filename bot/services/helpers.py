@@ -1,5 +1,5 @@
 from telegram import InputMediaPhoto
-from config import TAG_ELEMENTS_COUNT
+from bot.config import TAG_ELEMENTS_COUNT
 
 
 def message_to_tag(user_message):

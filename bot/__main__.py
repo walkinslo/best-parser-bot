@@ -1,12 +1,12 @@
 import logging
 
-import message_texts
-import config
+import bot.message_texts
+import bot.config
 
-from handlers.response import send_message
-from handlers import start, help
-from handlers.buttons import pagination_button
-from handlers.tag_conv_handler import (
+from bot.handlers.response import send_message
+from bot.handlers import start, help
+from bot.handlers.buttons import pagination_button
+from bot.handlers.tag_conv_handler import (
     tag,
     show_photo,
     done
@@ -31,13 +31,13 @@ logger = logging.getLogger(__name__)
 
 TAG, SHOW_PHOTO = range(2)
 
-if not config.TELEGRAM_API_TOKEN:
+if not bot.config.TELEGRAM_API_TOKEN:
     exit("Please, specify the token env variable!")
 
 
 async def tag_start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     context.user_data.clear()
-    await send_message(update, context, response=message_texts.TAG)
+    await send_message(update, context, response=bot.message_texts.TAG)
 
     return TAG
 
@@ -46,7 +46,7 @@ def main() -> None:
     application = (
         Application.builder()
         .concurrent_updates(True)
-        .token(config.TELEGRAM_API_TOKEN)
+        .token(bot.config.TELEGRAM_API_TOKEN)
         .build()
     )
 
